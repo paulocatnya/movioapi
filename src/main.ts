@@ -6,9 +6,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const writeLog = (req: Request, res: Response, next: NextFunction) => {
-    console.log(`Rota acessada: ${req.url}`);
-    console.log(`Metodo: ${req.method}`);
-    console.log(`header: ${JSON.stringify(req.headers)}`);
+    console.log(`Rota acessada: --> ${req.url}`);
+    console.log(`Metodo: --> ${req.method}`);
+    console.log(`header: --> ${JSON.stringify(req.headers)}`);
+    console.log(`Response: --> ${res}`);
     next();
   };
 
