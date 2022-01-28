@@ -24,7 +24,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         // synchronize: false,
         // migrationsRun: false,
         logging: true,
-        ssl: false,
       }),
       inject: [ConfigService],
     }),
