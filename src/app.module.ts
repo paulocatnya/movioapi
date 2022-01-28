@@ -20,9 +20,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         type: 'postgres',
         url: configService.get('DATABASE_URL'),
         entities: [__dirname + '/modules/**/*.entity{.ts,.js}'],
-        //migrations: [__dirname + '/migrations/*{.ts,.js}'],
-        // synchronize: false,
-        // migrationsRun: false,
+        migrations: [__dirname + '/migrations/*{.ts,.js}'],
+        synchronize: false,
+        migrationsRun: false,
         logging: true,
         ssl: {
           rejectUnauthorized: false,
