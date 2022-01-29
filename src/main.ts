@@ -9,12 +9,11 @@ async function bootstrap() {
     console.log(`Rota acessada: --> ${req.url}`);
     console.log(`Metodo: --> ${req.method}`);
     console.log(`header: --> ${JSON.stringify(req.headers)}`);
-    console.log(`Response: --> ${res}`);
     next();
   };
 
   app.use(writeLog);
 
-  await app.listen(process.env.PORT || 3000);
+  await app.listen(process.env.PORT || 3333);
 }
 bootstrap();
