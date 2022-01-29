@@ -26,6 +26,9 @@ import { SnakeNamingStrategy } from './db/snake-naming.strategy';
         migrationsRun: false,
         logging: true,
         namingStrategy: new SnakeNamingStrategy(),
+        ssl: {
+          rejectUnauthorized: false,
+        },
       }),
       inject: [ConfigService],
     }),
@@ -35,7 +38,3 @@ import { SnakeNamingStrategy } from './db/snake-naming.strategy';
   providers: [],
 })
 export class AppModule {}
-
-// ssl: {
-//   rejectUnauthorized: false,
-// },
