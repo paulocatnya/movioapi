@@ -5,6 +5,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { MovimentsModule } from './modules/moviment/moviments.module';
 import { UsersModule } from './modules/user/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { SnakeNamingStrategy } from './db/snake-naming.strategy';
 
 @Module({
   imports: [
@@ -24,9 +25,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         synchronize: false,
         migrationsRun: false,
         logging: true,
-        ssl: {
-          rejectUnauthorized: false,
-        },
+        namingStrategy: new SnakeNamingStrategy(),
       }),
       inject: [ConfigService],
     }),
@@ -36,3 +35,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   providers: [],
 })
 export class AppModule {}
+
+// ssl: {
+//   rejectUnauthorized: false,
+// },
