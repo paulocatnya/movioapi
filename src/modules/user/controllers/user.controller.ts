@@ -13,7 +13,7 @@ import { JwtAuthGuard } from 'src/modules/auth/jwt-auth.guard';
 import { UserDto } from '../dto';
 import { UsersService } from '../services/user.service';
 
-//@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 @Controller('users')
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
