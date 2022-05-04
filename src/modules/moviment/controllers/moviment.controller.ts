@@ -16,7 +16,7 @@ export class MovimentsController {
 
   @Post()
   createMoviment(@Body() dto: MovimentDto) {
-    console.log('Chegou: ', dto)
+    console.log('Chegou backend: ', dto)
     return this.movimentsService.create(dto);
   }
 }
