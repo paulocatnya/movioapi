@@ -29,6 +29,9 @@ import { SnakeNamingStrategy } from './db/snake-naming.strategy';
         ssl: {
           rejectUnauthorized: false,
         },
+        // ssl: {
+        //   rejectUnauthorized: false,
+        // },
       }),
       inject: [ConfigService],
     }),
