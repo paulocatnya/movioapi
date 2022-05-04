@@ -41,6 +41,7 @@ export class MovimentsService {
   }
 
   async create(dto: any) {
+    dto.user_id = "717388a2-defc-47b4-8dee-0791ba1601e5"
     return await this.movimentsRepository.save(dto);
   }
 }
