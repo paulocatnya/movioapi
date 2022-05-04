@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { Moviment, TypeMovimentEnum } from '../entities';
 import { MovimentsRepository } from '../repositories';
 
 @Injectable()
@@ -11,8 +10,6 @@ export class MovimentsService {
       { order: { updatedAt: 'ASC' } },
     );
 
-    console.log(moviments);
-
     const objRetorno = {
       moviments: moviments,
       totalDeposit: 0,
@@ -22,12 +19,12 @@ export class MovimentsService {
     };
 
     moviments.reduce((_, currentValue) => {
-      if (currentValue.type === TypeMovimentEnum.DEPOSIT) {
+      if (currentValue.type === "DEPOSIT") {
         objRetorno.totalDeposit += Number(currentValue.value);
         return (objRetorno.balance += Number(currentValue.value));
       }
 
-      if (currentValue.type === TypeMovimentEnum.WITHDRAW) {
+      if (currentValue.type === "WITHDRAW") {
         objRetorno.totalWithdraw += Number(currentValue.value);
         return (objRetorno.balance -= Number(currentValue.value));
       }
