@@ -1,9 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { UsersService } from 'src/modules/user/services';
 import { MovimentsRepository } from '../repositories';
 
 @Injectable()
 export class MovimentsService {
-  constructor(private movimentsRepository: MovimentsRepository) {}
+  constructor(
+    private movimentsRepository: MovimentsRepository,
+
+    private usersService: UsersService) { }
 
   async findAll() {
     const [moviments, totalItems] = await this.movimentsRepository.findAndCount(
@@ -37,9 +41,16 @@ export class MovimentsService {
     return await this.movimentsRepository.findOne(id);
   }
 
-  async create(dto: any) {
-    dto.user_id = "717388a2-defc-47b4-8dee-0791ba1601e5"
-    console.log('ADICIONANDO USER_ID:', dto.user_id)
-    return await this.movimentsRepository.save(dto);
+  async create(dto: any, idUser: string) {
+    dto.user = await this.usersService.findOne(idUser)
+
+    if (!idUser || !dto.user) {
+      throw new HttpException(
+        'Não foi possível identificar o usuário logado, por favor, efetue login novamente. ',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    return await this.movimentsRepository.insert(dto);
   }
 }

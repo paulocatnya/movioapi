@@ -1,12 +1,17 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/modules/auth/jwt-auth.guard';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { AuthService } from 'src/modules/auth/services';
+import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { MovimentDto } from '../dto';
 import { MovimentsService } from '../services/';
 
 @UseGuards(JwtAuthGuard)
 @Controller('moviments')
 export class MovimentsController {
-  constructor(private readonly movimentsService: MovimentsService) {}
+  constructor(
+    private readonly movimentsService: MovimentsService, 
+    private readonly authService: AuthService, 
+    
+  ) { }
 
   @Get()
   async getMoviments() {
@@ -15,8 +20,9 @@ export class MovimentsController {
   }
 
   @Post()
-  createMoviment(@Body() dto: MovimentDto) {
-    console.log('Chegou backend: ', dto)
-    return this.movimentsService.create(dto);
+  async createMoviment(@Body() dto: MovimentDto, @Req() request) {
+    console.log('Chegou aqui --> ', dto)
+    const { id } = this.authService.decode(request.headers.authorization)
+    return this.movimentsService.create(dto, id);
   }
 }
